@@ -1,32 +1,32 @@
 package com.tms.task_05.custom_collection;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+public class CustomCollection<T> implements ICollection<T> {
+    private int index = 0;
+    private int index1;
+    private Object[] data;
 
-public class CustomCollection<T> {
-    private T[] data;
-
-    public CustomCollection(T[] data) {
-        this.data = data;
+    public CustomCollection() {
+        this.data = new Object[4];
     }
 
-    public CustomCollection(Class<T[]> array, int size) {
-        data = array.cast(Array.newInstance(array.getComponentType(), size));
+    public CustomCollection(int size) {
+        data = new Object[size];
     }
-
-    int index = 0;
-    int index1;
 
     /**
      * Метод add добавляет элемент в массив
      *
      * @param item - принимаемое значение
      */
-    public void add(T item) {
+    public void addItem(T item) {
 
         if (item != null) {
             if (index >= data.length) {
-                data = Arrays.copyOf(data, data.length + 4);
+                Object[] data2 = new Object[data.length + 4];
+                for (int i = 0, j = 0; i < data.length; i++, j++) {
+                    data2[j] = data[i];
+                }
+                data = data2;
             }
             if (index < data.length & data[index] == null) {
                 data[index] = item;
@@ -44,11 +44,11 @@ public class CustomCollection<T> {
      * @param index - принимаемый индекс элемента
      * @return возвращает объект (значение элемента массива). Если индекс не существует, то вернет сообщение об этом
      */
-    public T get(int index) {
+    public Object getObject(int index) {
         if (index >= 0 & index < data.length) {
             return data[index];
         } else {
-            return (T) "элемент с заданным индексом не существует";
+            return "элемент с заданным индексом не существует";
         }
     }
 
@@ -58,7 +58,7 @@ public class CustomCollection<T> {
      * @param - не принимает никаких параметров
      * @return - возвращает поле Data
      */
-    public T[] getItems() {
+    public Object[] getItems() {
         return data;
     }
 
@@ -78,24 +78,20 @@ public class CustomCollection<T> {
      * @param - принимает параметр - индекс элемента
      */
     public void delete(int index) {
-        boolean var;
+        Object[] data2 = new Object[data.length - 1];
         if (index == 0) {
-            T[] data2 = (T[]) java.lang.reflect.Array.newInstance(data.getClass().getComponentType(), data.length - 1);
-            System.arraycopy(data, 1, data2, 0, data.length - 1);
-            data = data2;
-            var = true;
-        } else if (index == data.length - 1) {
-            T[] data2 = (T[]) java.lang.reflect.Array.newInstance(data.getClass().getComponentType(), data.length - 1);
-            if (data.length - 1 >= 0) {
-                System.arraycopy(data, 0, data2, 0, data2.length);
+            for (int i = 1, j = 0; i < data.length; i++, j++) {
+                data2[j] = data[i];
             }
-            var = true;
+            data = data2;
+        } else if (index == data.length - 1) {
+            for (int i = 0, j = 0; i < data.length - 1; i++, j++) {
+                data2[j] = data[i];
+            }
             data = data2;
         } else if (index > data.length - 1) {
-            var = false;
-
+            System.out.println("Элемент с таким индексом не существует");
         } else {
-            T[] data2 = (T[]) java.lang.reflect.Array.newInstance(data.getClass().getComponentType(), data.length - 1);
             for (int i = 0; i < data.length; i++) {
                 if (i > index) {
                     data2[i - 1] = data[i];
@@ -107,7 +103,6 @@ public class CustomCollection<T> {
                     data2[i] = data[i];
                 }
             }
-            var = true;
             data = data2;
         }
     }
@@ -117,10 +112,10 @@ public class CustomCollection<T> {
      *
      * @param - принимает параметр - значение элемента
      */
-    public void delete(T item) {
+    public void delete(Object item) {
         int i = 0;
         if (item != null) {
-            for (T element : data) {
+            for (Object element : data) {
                 if (element == null) {
                     continue;
                 } else if (element.equals(item)) {
@@ -131,14 +126,13 @@ public class CustomCollection<T> {
             }
             delete(index);
         }
-
     }
 
     /**
      * Метод очищает массив
      */
     public void clear() {
-        T[] data2 = (T[]) java.lang.reflect.Array.newInstance(data.getClass(), data.length);
+        Object[] data2 = new Object[data.length];
         for (int i = 0; i < data.length; i++) {
             data2[i] = null;
         }
@@ -177,5 +171,4 @@ public class CustomCollection<T> {
         }
         return b.toString();
     }
-
 }
