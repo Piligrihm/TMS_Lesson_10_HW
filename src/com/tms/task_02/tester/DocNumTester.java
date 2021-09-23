@@ -7,9 +7,9 @@ public class DocNumTester implements Tester {
     /**
      * Метод для запуска, проверки и сохранения данных в отчет
      */
-    public void startGame() {
+    public void startProg() {
         Scanner scanner = new Scanner(System.in);
-        ArrayList list = checkAndWriteAdressList(scanner);
+        List list = checkAndWriteAdressList(scanner);
         HashSet<String> docNum = checkAndWriteDocNumbersSet(list);
         HashMap<String, String> reportMap = checkAndWriteReportMap(docNum);
         saveReport(reportMap);
@@ -48,7 +48,7 @@ public class DocNumTester implements Tester {
      * @param list - приимаемый на вход Arraylist адресов документов
      * @return возвращает HashSet уникальных номеров документов
      */
-    private static HashSet<String> checkAndWriteDocNumbersSet(ArrayList list) {
+    private static HashSet<String> checkAndWriteDocNumbersSet(List list) {
         HashSet<String> temp = new HashSet<>();
         //Считываем имена документов из фалов и сохраняем в HashSet
         for (Object element : list) {
