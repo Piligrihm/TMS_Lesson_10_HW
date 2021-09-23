@@ -92,7 +92,7 @@ public class DocNumTester implements Tester {
      * @param map Принимаемый на вход HashMap проверенных номеров документов
      */
     private static void saveReport(HashMap<String, String> map) {
-        try (FileWriter report = new FileWriter("D:\\TeachMeSkills\\TMS_Lesson_10_HW\\Report.txt")) {
+        try (FileWriter report = new FileWriter("src\\resources\\Report.txt")) {
             int count = 1;
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 report.write(count + ". " + entry + "\n");
