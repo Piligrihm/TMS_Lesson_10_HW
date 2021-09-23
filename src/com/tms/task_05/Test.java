@@ -11,7 +11,7 @@ public class Test {
     public static void main(String[] args) {
 
         //Создаем объект класса c дженериком, который принимает массив целочисленных значений длиной 4 ячейки(элемента)
-        CustomCollection<Object> container = new CustomCollection<>(Object[].class, 4);
+        CustomCollection<Object> container = new CustomCollection<>(5);
         Human human1 = new Human();
         Human human2 = new Human();
         Human human3 = new Human();
@@ -23,29 +23,29 @@ public class Test {
         Car maz = new Car();
 
         // Наполняем значениями
-        container.add(human1);
-        container.add(lion);
-        container.add(human2);
-        container.add(iveco);
-        container.add(tiger);
-        container.add(maz);
-        container.add(elefant);
-        container.add(new Object());
-        container.add(ford);
+        container.addItem(human1);
+        container.addItem(lion);
+        container.addItem(human2);
+        container.addItem(iveco);
+        container.addItem(tiger);
+        container.addItem(maz);
+        container.addItem(elefant);
+        container.addItem(new Object());
+        container.addItem(ford);
 
         //Выводим в консоль индекс последнего добавленного элемента
         container.printLastIndex();
-        container.add(human3);
+        container.addItem(human3);
         container.printLastIndex();
-        container.add(null);
+        container.addItem(null);
         container.printLastIndex();
 
         //Получаем предварительно сохраненный объект и выводим в консоль
-        System.out.println(container.get(0));
-        System.out.println(container.get(1));
-        System.out.println(container.get(25));
+        System.out.println(container.getObject(0));
+        System.out.println(container.getObject(1));
+        System.out.println(container.getObject(25));
 
-        System.out.println("[" + container.get(5) + "]");
+        System.out.println("[" + container.getObject(5) + "]");
 
         //Получаем коллекцию и выводим в консоль в виде строки
         System.out.println(Arrays.toString(container.getItems()));
